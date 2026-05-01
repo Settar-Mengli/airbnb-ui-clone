@@ -1,7 +1,24 @@
+import Header from "../../components/Header";
+import ListingCard from "../../components/ListingCard";
+import { listings } from "../../data/listing";
+
 export default function CatalogPage() {
   return (
-    <main className="p-6">
-      Catalog Page
-    </main>
+    <>
+      <Header />
+      <main className="mx-auto w-full max-w-6xl px-4 py-8">
+        <section>
+          <h1 className="mb-6 text-2xl font-bold text-gray-900">
+            All stays
+          </h1>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {listings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
