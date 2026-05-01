@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import type { Listing } from "@/types/listing";
 
 type ListingCardProps = {
@@ -7,13 +10,17 @@ type ListingCardProps = {
 
 export default function ListingCard({ listing }: ListingCardProps) {
   const imageUrl = listing.images[0];
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   return (
-    <Link
-      href={`/rooms/${listing.id}`}
-      className="group block rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-4"
-    >
-      <article className="h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-200 group-hover:-translate-y-1 group-hover:shadow-md">
+    <article className="group relative h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-200 hover:scale-[1.02] hover:shadow-lg">
+      <Link
+        href={`/rooms/${listing.id}`}
+        aria-label={`View details for ${listing.title}`}
+        className="absolute inset-0 z-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-4"
+      />
+
+      <div className="relative">
         <div className="overflow-hidden bg-gray-200">
           <div
             className="h-60 bg-cover bg-center transition duration-300 group-hover:scale-105"
@@ -22,32 +29,46 @@ export default function ListingCard({ listing }: ListingCardProps) {
           />
         </div>
 
-        <div className="space-y-3 p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <h2 className="line-clamp-2 text-base font-semibold leading-snug text-gray-950">
-                {listing.title}
-              </h2>
-              <p className="mt-1 text-sm font-medium text-gray-600">
-                {listing.location}
-              </p>
-            </div>
+        <button
+          type="button"
+          onClick={() => setIsWishlisted(!isWishlisted)}
+          aria-label={
+            isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+          }
+          className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-xl shadow-sm transition hover:scale-110 active:scale-95"
+        >
+          <span className={isWishlisted ? "text-rose-500" : "text-gray-800"}>
+            {isWishlisted ? "\u2665" : "\u2661"}
+          </span>
+        </button>
+      </div>
 
-            <p className="shrink-0 rounded-full bg-gray-950 px-2.5 py-1 text-xs font-semibold text-white">
-              <span aria-hidden="true">&#9733;</span> {listing.rating.toFixed(2)}
+      <div className="space-y-3 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 className="line-clamp-2 text-base font-semibold leading-snug text-gray-950">
+              {listing.title}
+            </h2>
+            <p className="mt-1 text-sm font-medium text-gray-600">
+              {listing.location}
             </p>
           </div>
 
-          <p className="text-sm text-gray-500">
-            {listing.reviewCount} reviews | {listing.category}
-          </p>
-
-          <p className="text-base font-bold text-gray-950">
-            ${listing.pricePerNight}{" "}
-            <span className="font-normal text-gray-600">night</span>
+          <p className="shrink-0 rounded-full bg-gray-950 px-3 py-1 text-xs font-semibold text-white">
+            <span aria-hidden="true">&#9733;</span>{" "}
+            {listing.rating.toFixed(2)}
           </p>
         </div>
-      </article>
-    </Link>
+
+        <p className="text-sm text-gray-500">
+          {listing.reviewCount} reviews | {listing.category}
+        </p>
+
+        <p className="text-base font-bold text-gray-950">
+          ${listing.pricePerNight}{" "}
+          <span className="font-normal text-gray-600">night</span>
+        </p>
+      </div>
+    </article>
   );
 }

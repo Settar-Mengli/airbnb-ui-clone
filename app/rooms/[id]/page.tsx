@@ -86,7 +86,7 @@ export default function RoomDetailPage() {
                 type="button"
                 onClick={showPreviousPhoto}
                 disabled={!hasMultiplePhotos}
-                className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300 disabled:hover:bg-white"
+                className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 hover:bg-gray-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300 disabled:hover:bg-white"
               >
                 Previous
               </button>
@@ -97,7 +97,7 @@ export default function RoomDetailPage() {
                 type="button"
                 onClick={showNextPhoto}
                 disabled={!hasMultiplePhotos}
-                className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300 disabled:hover:bg-white"
+                className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 hover:bg-gray-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300 disabled:hover:bg-white"
               >
                 Next
               </button>
@@ -186,7 +186,7 @@ export default function RoomDetailPage() {
                           Math.max(1, currentCount - 1),
                         )
                       }
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500 hover:bg-gray-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-400"
                       disabled={guestCount === 1}
                     >
                       -
@@ -199,14 +199,14 @@ export default function RoomDetailPage() {
                       onClick={() =>
                         setGuestCount((currentCount) => currentCount + 1)
                       }
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500 hover:bg-gray-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
                     >
                       +
                     </button>
                   </div>
                 </div>
               </div>
-              <button className="mt-5 w-full rounded-lg bg-rose-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+              <button className="mt-5 w-full rounded-lg bg-rose-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-rose-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
                 Reserve
               </button>
             </aside>
