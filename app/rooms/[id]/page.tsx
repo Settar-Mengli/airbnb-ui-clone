@@ -18,12 +18,12 @@ export default async function RoomDetailPage({
     return (
       <>
         <Header />
-        <main className="mx-auto w-full max-w-6xl px-4 py-8">
-          <Link href="/catalog" className="text-sm font-medium text-rose-500">
+        <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <Link href="/catalog" className="text-sm font-semibold text-rose-500">
             Back to catalog
           </Link>
 
-          <h1 className="mt-6 text-2xl font-bold text-gray-900">
+          <h1 className="mt-6 text-2xl font-bold text-gray-950">
             Room not found
           </h1>
           <p className="mt-2 text-gray-600">
@@ -39,35 +39,41 @@ export default async function RoomDetailPage({
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-6xl px-4 py-8">
-        <Link href="/catalog" className="text-sm font-medium text-rose-500">
+      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Link href="/catalog" className="text-sm font-semibold text-rose-500">
           Back to catalog
         </Link>
 
         <section className="mt-6">
           <div
-            className="h-72 rounded-lg bg-gray-200 bg-cover bg-center sm:h-96"
+            className="h-72 rounded-lg bg-gray-200 bg-cover bg-center sm:h-96 lg:h-[480px]"
             style={{ backgroundImage: `url(${imageUrl})` }}
             aria-label={`Photo of ${listing.title}`}
           />
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_320px]">
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
             <div>
-              <p className="text-sm font-medium text-rose-500">
+              <p className="text-sm font-semibold uppercase text-rose-500">
                 {listing.category}
               </p>
-              <h1 className="mt-2 text-3xl font-bold text-gray-900">
+              <h1 className="mt-2 text-3xl font-bold text-gray-950 sm:text-4xl">
                 {listing.title}
               </h1>
-              <p className="mt-2 text-gray-600">{listing.location}</p>
+              <p className="mt-3 text-base font-medium text-gray-700">
+                {listing.location}
+              </p>
 
-              <div className="mt-4 flex flex-wrap gap-3 text-sm text-gray-700">
-                <span>{listing.rating.toFixed(2)} rating</span>
-                <span>{listing.reviewCount} reviews</span>
+              <div className="mt-4 flex flex-wrap gap-3 text-sm font-medium text-gray-700">
+                <span className="rounded-full bg-gray-100 px-3 py-1">
+                  {listing.rating.toFixed(2)} rating
+                </span>
+                <span className="rounded-full bg-gray-100 px-3 py-1">
+                  {listing.reviewCount} reviews
+                </span>
               </div>
 
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-900">
+              <div className="mt-8 border-t border-gray-200 pt-8">
+                <h2 className="text-xl font-bold text-gray-950">
                   Hosted by {listing.host.name}
                 </h2>
                 <p className="mt-2 text-gray-600">
@@ -77,13 +83,16 @@ export default async function RoomDetailPage({
                 </p>
               </div>
 
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-900">
+              <div className="mt-8 border-t border-gray-200 pt-8">
+                <h2 className="text-xl font-bold text-gray-950">
                   Amenities
                 </h2>
-                <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {listing.amenities.map((amenity) => (
-                    <li key={amenity} className="text-gray-700">
+                    <li
+                      key={amenity}
+                      className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-800"
+                    >
                       {amenity}
                     </li>
                   ))}
@@ -91,8 +100,8 @@ export default async function RoomDetailPage({
               </div>
             </div>
 
-            <aside className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-              <p className="text-2xl font-bold text-gray-900">
+            <aside className="h-fit rounded-lg border border-gray-200 bg-white p-5 shadow-lg lg:sticky lg:top-6">
+              <p className="text-2xl font-bold text-gray-950">
                 ${listing.pricePerNight}
                 <span className="text-base font-normal text-gray-600">
                   {" "}
@@ -102,7 +111,25 @@ export default async function RoomDetailPage({
               <p className="mt-2 text-sm text-gray-600">
                 Booking details will go here.
               </p>
-              <button className="mt-5 w-full rounded-lg bg-rose-500 px-4 py-3 text-sm font-semibold text-white">
+              <div className="mt-5 rounded-lg border border-gray-200">
+                <div className="border-b border-gray-200 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase text-gray-500">
+                    Dates
+                  </p>
+                  <p className="text-sm font-medium text-gray-900">
+                    Add travel dates
+                  </p>
+                </div>
+                <div className="px-4 py-3">
+                  <p className="text-xs font-semibold uppercase text-gray-500">
+                    Guests
+                  </p>
+                  <p className="text-sm font-medium text-gray-900">
+                    Add guests
+                  </p>
+                </div>
+              </div>
+              <button className="mt-5 w-full rounded-lg bg-rose-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-rose-600">
                 Reserve
               </button>
             </aside>

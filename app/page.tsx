@@ -32,21 +32,26 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-6xl px-4 py-8">
+      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <section>
           <input
             type="text"
             placeholder="Search stays"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 outline-none focus:border-rose-500"
+            className="mb-8 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
           />
 
-          <h1 className="mb-6 text-2xl font-bold text-gray-900">
-            Featured stays
-          </h1>
+          <div className="mb-6">
+            <p className="text-sm font-semibold uppercase text-rose-500">
+              Start exploring
+            </p>
+            <h1 className="mt-1 text-2xl font-bold text-gray-950 sm:text-3xl">
+              Featured stays
+            </h1>
+          </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {featuredListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
