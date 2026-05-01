@@ -1,17 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 import Header from "@/components/Header";
 import { listings } from "@/data/listing";
 
-type RoomDetailPageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-};
+export default function RoomDetailPage() {
+  const params = useParams<{ id: string }>();
+  const [guestCount, setGuestCount] = useState(1);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
-export default async function RoomDetailPage({
-  params,
-}: RoomDetailPageProps) {
-  const { id } = await params;
+  const { id } = params;
   const listing = listings.find((item) => item.id === id);
 
   if (!listing) {
@@ -34,7 +34,28 @@ export default async function RoomDetailPage({
     );
   }
 
-  const imageUrl = listing.images[0];
+  const imageUrl = listing.images[currentPhotoIndex] || listing.images[0];
+  const hasMultiplePhotos = listing.images.length > 1;
+
+  function showPreviousPhoto() {
+    setCurrentPhotoIndex((currentIndex) => {
+      if (currentIndex === 0) {
+        return listing.images.length - 1;
+      }
+
+      return currentIndex - 1;
+    });
+  }
+
+  function showNextPhoto() {
+    setCurrentPhotoIndex((currentIndex) => {
+      if (currentIndex === listing.images.length - 1) {
+        return 0;
+      }
+
+      return currentIndex + 1;
+    });
+  }
 
   return (
     <>
@@ -45,11 +66,35 @@ export default async function RoomDetailPage({
         </Link>
 
         <section className="mt-6">
-          <div
-            className="h-72 rounded-lg bg-gray-200 bg-cover bg-center sm:h-96 lg:h-[480px]"
-            style={{ backgroundImage: `url(${imageUrl})` }}
-            aria-label={`Photo of ${listing.title}`}
-          />
+          <div className="overflow-hidden rounded-lg bg-white shadow-sm">
+            <div
+              className="h-72 bg-gray-200 bg-cover bg-center sm:h-96 lg:h-[480px]"
+              style={{ backgroundImage: `url(${imageUrl})` }}
+              aria-label={`Photo of ${listing.title}`}
+            />
+
+            <div className="flex items-center justify-between gap-4 border border-t-0 border-gray-200 px-4 py-3">
+              <button
+                type="button"
+                onClick={showPreviousPhoto}
+                disabled={!hasMultiplePhotos}
+                className="rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300"
+              >
+                Previous
+              </button>
+              <p className="text-sm font-medium text-gray-600">
+                Photo {currentPhotoIndex + 1} of {listing.images.length}
+              </p>
+              <button
+                type="button"
+                onClick={showNextPhoto}
+                disabled={!hasMultiplePhotos}
+                className="rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:border-gray-500 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:border-gray-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
             <div>
@@ -124,9 +169,32 @@ export default async function RoomDetailPage({
                   <p className="text-xs font-semibold uppercase text-gray-500">
                     Guests
                   </p>
-                  <p className="text-sm font-medium text-gray-900">
-                    Add guests
-                  </p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setGuestCount((currentCount) =>
+                          Math.max(1, currentCount - 1),
+                        )
+                      }
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500 disabled:cursor-not-allowed disabled:text-gray-400"
+                      disabled={guestCount === 1}
+                    >
+                      -
+                    </button>
+                    <span className="text-sm font-semibold text-gray-900">
+                      {guestCount} {guestCount === 1 ? "guest" : "guests"}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setGuestCount((currentCount) => currentCount + 1)
+                      }
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 text-lg font-semibold text-gray-700 transition hover:border-gray-500"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
               <button className="mt-5 w-full rounded-lg bg-rose-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-rose-600">
