@@ -32,15 +32,22 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <section>
-          <input
-            type="text"
-            placeholder="Search stays"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            className="mb-8 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
-          />
+          <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+            <label className="block">
+              <span className="text-sm font-semibold text-gray-700">
+                Find your next stay
+              </span>
+              <input
+                type="text"
+                placeholder="Search stays"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                className="mt-3 w-full rounded-full border border-gray-300 bg-white px-5 py-3 text-base text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
+              />
+            </label>
+          </div>
 
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase text-rose-500">
@@ -51,7 +58,7 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featuredListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}

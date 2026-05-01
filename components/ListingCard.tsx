@@ -11,14 +11,16 @@ export default function ListingCard({ listing }: ListingCardProps) {
   return (
     <Link
       href={`/rooms/${listing.id}`}
-      className="group block rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
+      className="group block rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-4"
     >
-      <article className="h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-200 group-hover:-translate-y-1 group-hover:border-gray-300 group-hover:shadow-lg">
-        <div
-          className="h-56 bg-gray-200 bg-cover bg-center transition duration-200 group-hover:scale-105"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-          aria-label={`Photo of ${listing.title}`}
-        />
+      <article className="h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-200 group-hover:-translate-y-1 group-hover:shadow-md">
+        <div className="overflow-hidden bg-gray-200">
+          <div
+            className="h-60 bg-cover bg-center transition duration-300 group-hover:scale-105"
+            style={{ backgroundImage: `url(${imageUrl})` }}
+            aria-label={`Photo of ${listing.title}`}
+          />
+        </div>
 
         <div className="space-y-3 p-4">
           <div className="flex items-start justify-between gap-3">
@@ -31,12 +33,14 @@ export default function ListingCard({ listing }: ListingCardProps) {
               </p>
             </div>
 
-            <p className="shrink-0 rounded-full bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-900">
-              {listing.rating.toFixed(2)}
+            <p className="shrink-0 rounded-full bg-gray-950 px-2.5 py-1 text-xs font-semibold text-white">
+              <span aria-hidden="true">&#9733;</span> {listing.rating.toFixed(2)}
             </p>
           </div>
 
-          <p className="text-sm text-gray-500">{listing.reviewCount} reviews</p>
+          <p className="text-sm text-gray-500">
+            {listing.reviewCount} reviews | {listing.category}
+          </p>
 
           <p className="text-base font-bold text-gray-950">
             ${listing.pricePerNight}{" "}

@@ -48,7 +48,7 @@ export default function CatalogPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <section>
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase text-rose-500">
@@ -59,7 +59,7 @@ export default function CatalogPage() {
             </h1>
           </div>
 
-          <div className="mb-8 grid gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="mb-8 grid gap-5 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5 lg:grid-cols-[1fr_220px] lg:items-end">
             <label className="block">
               <span className="text-sm font-semibold text-gray-700">
                 Search
@@ -69,11 +69,11 @@ export default function CatalogPage() {
                 placeholder="Search stays"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
+                className="mt-2 w-full rounded-full border border-gray-300 px-5 py-3 text-base text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
               />
             </label>
 
-            <label className="block lg:w-48">
+            <label className="block">
               <span className="text-sm font-semibold text-gray-700">
                 Sort by price
               </span>
@@ -82,7 +82,7 @@ export default function CatalogPage() {
                 onChange={(event) =>
                   setSortOrder(event.target.value as SortOrder)
                 }
-                className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
+                className="mt-2 w-full rounded-full border border-gray-300 bg-white px-5 py-3 text-base text-gray-900 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
               >
                 <option value="asc">Low to high</option>
                 <option value="desc">High to low</option>
@@ -95,10 +95,10 @@ export default function CatalogPage() {
                   key={category}
                   type="button"
                   onClick={() => setActiveCategory(category)}
-                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 ${
                     activeCategory === category
-                      ? "border-rose-500 bg-rose-500 text-white"
-                      : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                      ? "border-rose-500 bg-rose-500 text-white shadow-sm"
+                      : "border-gray-300 bg-white text-gray-700 hover:border-gray-500 hover:bg-gray-50"
                   }`}
                 >
                   {category}
@@ -108,15 +108,25 @@ export default function CatalogPage() {
           </div>
 
           {loading ? (
-            <div className="rounded-lg border border-gray-200 bg-white p-6 text-center text-gray-600 shadow-sm">
-              Loading stays...
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+              <p className="text-base font-semibold text-gray-900">
+                Loading stays...
+              </p>
+              <p className="mt-2 text-sm text-gray-500">
+                Finding places that match your trip.
+              </p>
             </div>
           ) : filteredListings.length === 0 ? (
-            <div className="rounded-lg border border-gray-200 bg-white p-6 text-center text-gray-600 shadow-sm">
-              No stays found
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+              <p className="text-base font-semibold text-gray-900">
+                No stays found
+              </p>
+              <p className="mt-2 text-sm text-gray-500">
+                Try a different search or category.
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredListings.map((listing) => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}
